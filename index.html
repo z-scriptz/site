@@ -3,188 +3,377 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Achadinhos · Os produtos que viram vídeo</title>
+<title>topshop · Produtos inteligentes. Conteúdo estratégico.</title>
 <style>
   :root {
-    --ink: #16161d;
-    --paper: #fdfcf8;
-    --pop: #ff4d2e;        /* vermelho-laranja "olha isso" */
-    --pop-soft: #fff0ec;
-    --gold: #ffb800;
-    --line: #e8e4d8;
-    --muted: #6b6b76;
+    --bg: #0a0a12;
+    --bg-soft: #12121f;
+    --ink: #f4f4f8;
+    --muted: #9a9ab0;
+    --pop: #6d5dfc;        /* violeta elétrico */
+    --pop2: #00d4ff;       /* ciano tech */
+    --gold: #ffc83d;
+    --glass: rgba(255,255,255,0.04);
+    --glass-border: rgba(255,255,255,0.10);
+    --grad: linear-gradient(135deg, #6d5dfc 0%, #00d4ff 100%);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
     font-family: 'Inter', -apple-system, Segoe UI, Roboto, sans-serif;
-    background: var(--paper); color: var(--ink); line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
+    background: var(--bg); color: var(--ink); line-height: 1.6;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
   }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+  a { color: inherit; text-decoration: none; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal { opacity: 0; transform: translateY(24px);
+              transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+  }
 
   /* ===== Nav ===== */
   nav {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 22px 24px; max-width: 1080px; margin: 0 auto;
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,10,18,0.72); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--glass-border);
   }
-  .logo { font-weight: 800; font-size: 1.25rem; letter-spacing: -0.02em; }
-  .logo span { color: var(--pop); }
-  nav a { color: var(--ink); text-decoration: none; font-weight: 600;
-          font-size: 0.95rem; }
+  .nav-in { display: flex; justify-content: space-between; align-items: center;
+            padding: 16px 24px; max-width: 1140px; margin: 0 auto; }
+  .logo { font-weight: 800; font-size: 1.3rem; letter-spacing: -0.02em; }
+  .logo b { background: var(--grad); -webkit-background-clip: text;
+            background-clip: text; color: transparent; }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a { color: var(--muted); font-weight: 600; font-size: 0.92rem;
+                 transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+  @media (max-width: 760px) { .nav-links { display: none; } }
 
   /* ===== Hero ===== */
-  .hero { padding: 70px 0 80px; text-align: center; }
-  .eyebrow {
-    display: inline-block; background: var(--pop-soft); color: var(--pop);
-    font-weight: 700; font-size: 0.8rem; letter-spacing: 0.08em;
-    text-transform: uppercase; padding: 7px 16px; border-radius: 100px;
-    margin-bottom: 28px;
+  .hero { position: relative; text-align: center; padding: 110px 0 90px; }
+  .hero::before {
+    content: ''; position: absolute; top: -10%; left: 50%;
+    transform: translateX(-50%); width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(109,93,252,0.22) 0%, transparent 60%);
+    z-index: -1; animation: float 8s ease-in-out infinite;
   }
-  .hero h1 {
-    font-size: clamp(2.4rem, 6vw, 4.4rem); font-weight: 800;
-    letter-spacing: -0.03em; line-height: 1.02; margin-bottom: 24px;
+  @keyframes float { 0%,100% { transform: translateX(-50%) translateY(0); }
+                     50% { transform: translateX(-50%) translateY(-24px); } }
+  .badge {
+    display: inline-block; background: var(--glass);
+    border: 1px solid var(--glass-border); color: var(--pop2);
+    font-weight: 600; font-size: 0.82rem; letter-spacing: 0.06em;
+    padding: 8px 18px; border-radius: 100px; margin-bottom: 30px;
+    text-transform: uppercase;
   }
-  .hero h1 em { font-style: normal; color: var(--pop);
-                position: relative; white-space: nowrap; }
-  .hero h1 em::after {
-    content: ''; position: absolute; left: 0; right: 0; bottom: 6px;
-    height: 12px; background: var(--gold); opacity: 0.35; z-index: -1;
-    border-radius: 4px;
-  }
-  .hero p {
-    font-size: 1.2rem; color: var(--muted); max-width: 560px;
-    margin: 0 auto 36px;
-  }
-  .cta {
-    display: inline-block; background: var(--pop); color: #fff;
-    font-weight: 700; font-size: 1.05rem; text-decoration: none;
-    padding: 16px 38px; border-radius: 100px;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-    box-shadow: 0 8px 24px rgba(255,77,46,0.28);
-  }
-  .cta:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(255,77,46,0.36); }
+  .hero h1 { font-size: clamp(2.6rem, 6.5vw, 5rem); font-weight: 800;
+             letter-spacing: -0.03em; line-height: 1.04; margin-bottom: 26px; }
+  .hero h1 b { background: var(--grad); -webkit-background-clip: text;
+               background-clip: text; color: transparent; }
+  .hero p { font-size: 1.22rem; color: var(--muted); max-width: 600px;
+            margin: 0 auto 40px; }
+  .hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 
-  /* ===== Faixa de números ===== */
-  .strip {
-    display: flex; flex-wrap: wrap; justify-content: center; gap: 48px;
-    padding: 36px 0; border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line); margin-top: 20px;
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-weight: 700; font-size: 1rem; padding: 15px 32px;
+    border-radius: 100px; cursor: pointer; border: none;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
   }
-  .strip div { text-align: center; }
-  .strip b { display: block; font-size: 1.9rem; font-weight: 800;
-             letter-spacing: -0.02em; }
-  .strip small { color: var(--muted); font-size: 0.85rem; font-weight: 600;
-                 text-transform: uppercase; letter-spacing: 0.05em; }
+  .btn-primary { background: var(--grad); color: #fff;
+                 box-shadow: 0 8px 30px rgba(109,93,252,0.4); }
+  .btn-primary:hover { transform: translateY(-2px);
+                       box-shadow: 0 14px 40px rgba(109,93,252,0.55); }
+  .btn-ghost { background: var(--glass); color: var(--ink);
+               border: 1px solid var(--glass-border); }
+  .btn-ghost:hover { transform: translateY(-2px);
+                     border-color: var(--pop2); }
 
-  /* ===== Seções ===== */
-  section { padding: 80px 0; }
-  .sec-title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800;
-               letter-spacing: -0.02em; margin-bottom: 16px; }
-  .sec-sub { color: var(--muted); font-size: 1.1rem; max-width: 560px;
-             margin-bottom: 48px; }
+  /* ===== Section base ===== */
+  section { padding: 90px 0; }
+  .eyebrow { color: var(--pop2); font-weight: 700; font-size: 0.85rem;
+             letter-spacing: 0.1em; text-transform: uppercase;
+             margin-bottom: 14px; }
+  .sec-title { font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 800;
+               letter-spacing: -0.02em; margin-bottom: 18px; }
+  .sec-sub { color: var(--muted); font-size: 1.12rem; max-width: 600px;
+             margin-bottom: 56px; }
+  .center { text-align: center; }
+  .center .sec-sub { margin-left: auto; margin-right: auto; }
 
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-  .card {
-    background: #fff; border: 1px solid var(--line); border-radius: 18px;
-    padding: 32px 26px;
+  /* ===== Glass cards ===== */
+  .glass {
+    background: var(--glass); border: 1px solid var(--glass-border);
+    border-radius: 20px; backdrop-filter: blur(12px);
+    transition: transform 0.25s ease, border-color 0.25s ease,
+                box-shadow 0.25s ease;
   }
-  .card .num { font-size: 0.85rem; font-weight: 800; color: var(--pop);
-               letter-spacing: 0.05em; margin-bottom: 14px; }
-  .card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
-  .card p { color: var(--muted); font-size: 0.98rem; }
+  .glass:hover { transform: translateY(-6px); border-color: rgba(109,93,252,0.5);
+                 box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
 
-  /* ===== CTA final ===== */
-  .final {
-    background: var(--ink); color: var(--paper); border-radius: 28px;
-    padding: 64px 40px; text-align: center; margin: 40px 0;
+  .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px; }
+  @media (max-width: 860px) { .grid-3, .grid-2 { grid-template-columns: 1fr; } }
+
+  .feat { padding: 32px 28px; }
+  .feat .ico { width: 46px; height: 46px; border-radius: 12px;
+               background: var(--grad); display: flex; align-items: center;
+               justify-content: center; margin-bottom: 18px; font-size: 1.3rem; }
+  .feat h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
+  .feat p { color: var(--muted); font-size: 0.96rem; }
+
+  /* ===== Diferenciais (lista compacta) ===== */
+  .difs { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px 32px;
+          margin-top: 10px; }
+  @media (max-width: 760px) { .difs { grid-template-columns: 1fr; } }
+  .dif { display: flex; align-items: center; gap: 14px; padding: 16px 0;
+         border-bottom: 1px solid var(--glass-border); }
+  .dif .check { color: var(--pop2); font-weight: 800; font-size: 1.1rem; }
+  .dif span:last-child { font-weight: 600; }
+
+  /* ===== Vitrine produtos ===== */
+  .prod { overflow: hidden; }
+  .prod .thumb {
+    height: 200px; background: linear-gradient(135deg,#1a1a2e,#16213e);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted); font-size: 0.9rem; position: relative;
   }
-  .final h2 { font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 800;
-              letter-spacing: -0.02em; margin-bottom: 18px; }
-  .final p { color: #b8b8c2; font-size: 1.1rem; margin-bottom: 32px; }
-  .final .cta { background: var(--gold); color: var(--ink);
-                box-shadow: 0 8px 24px rgba(255,184,0,0.3); }
+  .prod .selo { position: absolute; top: 14px; left: 14px;
+                background: var(--gold); color: #0a0a12; font-weight: 800;
+                font-size: 0.72rem; padding: 6px 12px; border-radius: 100px;
+                letter-spacing: 0.03em; }
+  .prod .body { padding: 22px; }
+  .prod h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+  .prod p { color: var(--muted); font-size: 0.92rem; margin-bottom: 18px; }
+  .prod .ver { display: block; text-align: center; background: var(--glass);
+               border: 1px solid var(--glass-border); padding: 12px;
+               border-radius: 100px; font-weight: 700; font-size: 0.95rem;
+               transition: background 0.2s, border-color 0.2s; }
+  .prod .ver:hover { border-color: var(--pop2); background: rgba(0,212,255,0.08); }
+
+  /* ===== Contato ===== */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+                  align-items: center; }
+  @media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; } }
+  .contact-info { display: flex; flex-direction: column; gap: 16px; }
+  .ci { display: flex; align-items: center; gap: 14px; color: var(--muted); }
+  .ci .ico { width: 40px; height: 40px; border-radius: 10px;
+             background: var(--glass); border: 1px solid var(--glass-border);
+             display: flex; align-items: center; justify-content: center;
+             font-size: 1.1rem; flex-shrink: 0; }
+  .ci a { color: var(--ink); font-weight: 600; }
+  .contact-btns { display: flex; flex-direction: column; gap: 14px; }
+  .contact-btns .btn { justify-content: center; width: 100%; }
+  .btn-wa { background: #25d366; color: #052e16; }
+  .btn-mail { background: var(--glass); border: 1px solid var(--glass-border);
+              color: var(--ink); }
+  .btn-ofer { background: var(--gold); color: #0a0a12; }
+  .contact-btns .btn:hover { transform: translateY(-2px); }
 
   /* ===== Footer ===== */
-  footer { border-top: 1px solid var(--line); padding: 40px 0;
-           color: var(--muted); font-size: 0.9rem; }
-  .foot-row { display: flex; justify-content: space-between;
-              flex-wrap: wrap; gap: 16px; align-items: center; }
-  footer a { color: var(--muted); text-decoration: none; margin-left: 20px; }
-  footer a:hover { color: var(--pop); }
-
-  @media (max-width: 760px) {
-    .grid { grid-template-columns: 1fr; }
-    .strip { gap: 28px; }
-    .foot-row { flex-direction: column; text-align: center; }
-    footer a { margin: 0 10px; }
-  }
+  footer { background: var(--bg-soft); border-top: 1px solid var(--glass-border);
+           padding: 60px 0 30px; margin-top: 40px; }
+  .foot-top { display: flex; justify-content: space-between; flex-wrap: wrap;
+              gap: 30px; margin-bottom: 40px; }
+  .foot-brand { max-width: 320px; }
+  .foot-brand .logo { font-size: 1.5rem; margin-bottom: 12px; }
+  .foot-brand p { color: var(--muted); font-size: 0.95rem; }
+  .foot-links { display: flex; gap: 50px; flex-wrap: wrap; }
+  .foot-col h4 { font-size: 0.85rem; text-transform: uppercase;
+                 letter-spacing: 0.08em; color: var(--muted); margin-bottom: 14px; }
+  .foot-col a { display: block; color: var(--ink); font-weight: 600;
+                font-size: 0.95rem; margin-bottom: 10px; opacity: 0.85;
+                transition: opacity 0.2s; }
+  .foot-col a:hover { opacity: 1; color: var(--pop2); }
+  .afiliado { color: var(--muted); font-size: 0.82rem; line-height: 1.6;
+              border-top: 1px solid var(--glass-border); padding-top: 24px;
+              margin-bottom: 16px; }
+  .copy { color: var(--muted); font-size: 0.85rem; text-align: center; }
+  .copy a { color: var(--muted); margin: 0 8px; }
+  .copy a:hover { color: var(--pop2); }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="logo">Achadinhos<span>.</span></div>
-  <a href="#contato">Contato</a>
+  <div class="nav-in">
+    <div class="logo">top<b>shop</b>.</div>
+    <div class="nav-links">
+      <a href="#inicio">Início</a>
+      <a href="#diferenciais">Diferenciais</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#produtos">Produtos</a>
+      <a href="#contato">Contato</a>
+    </div>
+    <a href="#contato" class="btn btn-primary" style="padding:10px 22px;font-size:0.9rem;">Parcerias</a>
+  </div>
 </nav>
 
-<header class="hero wrap">
-  <span class="eyebrow">Curadoria de achados que valem a pena</span>
-  <h1>Os produtos que você não sabia que <em>precisava</em>.</h1>
-  <p>A gente garimpa, testa e mostra os achadinhos mais espertos pra facilitar
-     o seu dia a dia — com link direto pra você garantir o seu.</p>
-  <a href="#contato" class="cta">Ver os achados</a>
-
-  <div class="strip">
-    <div><b>100+</b><small>produtos testados</small></div>
-    <div><b>Diário</b><small>novos achados</small></div>
-    <div><b>Direto</b><small>link sem enrolação</small></div>
+<!-- HERO -->
+<header class="hero" id="inicio">
+  <div class="wrap">
+    <span class="badge">Curadoria · Conteúdo · Tecnologia</span>
+    <h1>Produtos inteligentes.<br><b>Conteúdo que converte.</b></h1>
+    <p>A topshop garimpa, testa e transforma achados em vídeos estratégicos —
+       unindo curadoria afiada e inteligência artificial pra escalar resultado.</p>
+    <div class="hero-cta">
+      <a href="#produtos" class="btn btn-primary">Ver produtos</a>
+      <a href="#contato" class="btn btn-ghost">Propor parceria</a>
+    </div>
   </div>
 </header>
 
-<section class="wrap">
-  <h2 class="sec-title">Como funciona</h2>
-  <p class="sec-sub">Sem catálogo infinito nem post patrocinado disfarçado.
-     Só o que a gente acha que merece um lugar na sua casa.</p>
-  <div class="grid">
-    <div class="card">
-      <div class="num">01 — GARIMPO</div>
-      <h3>A gente acha</h3>
-      <p>Vasculhamos as ofertas e separamos os produtos que realmente resolvem
-         um problema — não os que só estão na moda.</p>
+<!-- DIFERENCIAIS -->
+<section id="diferenciais" class="wrap reveal">
+  <span class="eyebrow">Por que a topshop</span>
+  <h2 class="sec-title">Diferenciais que entregam</h2>
+  <p class="sec-sub">Não é sobre postar muito. É sobre postar o que funciona,
+     com método e tecnologia por trás.</p>
+  <div class="difs">
+    <div class="dif"><span class="check">✦</span><span>Curadoria inteligente de produtos</span></div>
+    <div class="dif"><span class="check">✦</span><span>Conteúdo feito pra prender atenção</span></div>
+    <div class="dif"><span class="check">✦</span><span>Uso estratégico de inteligência artificial</span></div>
+    <div class="dif"><span class="check">✦</span><span>Foco em produtos úteis e virais</span></div>
+    <div class="dif"><span class="check">✦</span><span>Presença em múltiplas plataformas</span></div>
+    <div class="dif"><span class="check">✦</span><span>Mentalidade de escala</span></div>
+    <div class="dif"><span class="check">✦</span><span>Atendimento direto pra parcerias</span></div>
+    <div class="dif"><span class="check">✦</span><span>Tecnologia própria em movimento</span></div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section id="servicos" class="wrap reveal">
+  <div class="center">
+    <span class="eyebrow">O que fazemos</span>
+    <h2 class="sec-title">Serviços</h2>
+    <p class="sec-sub">Do achado ao alcance — uma operação completa de conteúdo
+       e divulgação.</p>
+  </div>
+  <div class="grid-3">
+    <div class="glass feat"><div class="ico">📢</div><h3>Divulgação de produtos</h3><p>Seu produto apresentado pra um público pronto pra comprar.</p></div>
+    <div class="glass feat"><div class="ico">🎬</div><h3>Conteúdo para redes</h3><p>Vídeos curtos e diretos, pensados pra cada plataforma.</p></div>
+    <div class="glass feat"><div class="ico">⭐</div><h3>Reviews e demonstrações</h3><p>Demonstração honesta que mostra o produto em ação.</p></div>
+    <div class="glass feat"><div class="ico">🔗</div><h3>Estratégia de afiliados</h3><p>Links rastreáveis e conversão acompanhada de perto.</p></div>
+    <div class="glass feat"><div class="ico">🤝</div><h3>Parcerias comerciais</h3><p>Colaborações sob medida pra marcas e lojistas.</p></div>
+    <div class="glass feat"><div class="ico">⚡</div><h3>Campanhas com vídeos curtos</h3><p>Volume e ritmo de publicação pensados pra escala.</p></div>
+  </div>
+  <div class="center" style="margin-top:48px;">
+    <a href="#contato" class="btn btn-primary">Propor parceria</a>
+  </div>
+</section>
+
+<!-- PRODUTOS (vitrine) -->
+<section id="produtos" class="wrap reveal">
+  <div class="center">
+    <span class="eyebrow">Achados da vez</span>
+    <h2 class="sec-title">Vitrine topshop</h2>
+    <p class="sec-sub">Os produtos que ganharam o selo de achado esperto.
+       Clique e garanta o seu.</p>
+  </div>
+  <div class="grid-3">
+    <!-- CARD MODELO: copie este bloco pra adicionar mais produtos.
+         Troque o nome, a descrição e o link do botão "Ver Oferta". -->
+    <div class="glass prod">
+      <div class="thumb"><span class="selo">Achado topshop</span>[ imagem do produto ]</div>
+      <div class="body">
+        <h3>Nome do Produto</h3>
+        <p>Descrição curta e persuasiva — o que resolve e por que vale a pena.</p>
+        <a href="COLE_O_LINK_DE_AFILIADO_AQUI" class="ver">Ver oferta</a>
+      </div>
     </div>
-    <div class="card">
-      <div class="num">02 — VÍDEO</div>
-      <h3>A gente mostra</h3>
-      <p>Cada achado vira um vídeo curto e direto, mostrando pra que serve e por
-         que vale a pena, sem rodeio.</p>
+    <div class="glass prod">
+      <div class="thumb"><span class="selo">Achado topshop</span>[ imagem do produto ]</div>
+      <div class="body">
+        <h3>Nome do Produto</h3>
+        <p>Descrição curta e persuasiva — o que resolve e por que vale a pena.</p>
+        <a href="COLE_O_LINK_DE_AFILIADO_AQUI" class="ver">Ver oferta</a>
+      </div>
     </div>
-    <div class="card">
-      <div class="num">03 — LINK</div>
-      <h3>Você garante</h3>
-      <p>O link fica logo ali. Você clica, compra na loja oficial e recebe em
-         casa. Simples assim.</p>
+    <div class="glass prod">
+      <div class="thumb"><span class="selo">Achado topshop</span>[ imagem do produto ]</div>
+      <div class="body">
+        <h3>Nome do Produto</h3>
+        <p>Descrição curta e persuasiva — o que resolve e por que vale a pena.</p>
+        <a href="COLE_O_LINK_DE_AFILIADO_AQUI" class="ver">Ver oferta</a>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="wrap">
-  <div class="final" id="contato">
-    <h2>Quer acompanhar os achados?</h2>
-    <p>Segue a gente nas redes e não perde nenhum.</p>
-    <a href="#" class="cta">Seguir nas redes</a>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap foot-row">
-    <div>© 2026 Achadinhos. Todos os direitos reservados.</div>
+<!-- CONTATO -->
+<section id="contato" class="wrap reveal">
+  <div class="contact-grid">
     <div>
-      <a href="privacidade.html">Política de Privacidade</a>
-      <a href="termos.html">Termos de Serviço</a>
+      <span class="eyebrow">Vamos conversar</span>
+      <h2 class="sec-title">Fale comigo</h2>
+      <p class="sec-sub" style="margin-bottom:30px;">Quer indicar um produto, propor
+         uma parceria ou falar sobre oportunidades digitais? Entre em contato.</p>
+      <div class="contact-info">
+        <div class="ci"><div class="ico">💬</div><span>WhatsApp: <a href="https://wa.me/5562993508130">+55 62 99350-8130</a></span></div>
+        <div class="ci"><div class="ico">✉️</div><span>E-mail: <a href="mailto:jhon-henrique2018@hotmail.com">jhon-henrique2018@hotmail.com</a></span></div>
+        <div class="ci"><div class="ico">📍</div><span>Goiânia — GO</span></div>
+        <div class="ci"><div class="ico">📸</div><span>Instagram: <a href="https://www.instagram.com/topshop.__/" target="_blank">@topshop.__</a></span></div>
+        <div class="ci"><div class="ico">🎵</div><span>TikTok: <a href="https://www.tiktok.com/@topshop.__" target="_blank">@topshop.__</a></span></div>
+        <div class="ci"><div class="ico">▶️</div><span>YouTube: <a href="https://www.youtube.com/@TopShop._0" target="_blank">TopShop_.</a></span></div>
+      </div>
     </div>
+    <div class="contact-btns">
+      <a href="https://wa.me/5562993508130" class="btn btn-wa" target="_blank">Chamar no WhatsApp</a>
+      <a href="mailto:jhon-henrique2018@hotmail.com" class="btn btn-mail">Enviar e-mail</a>
+      <a href="https://beacons.ai/topshop" class="btn btn-ofer" target="_blank">Ver ofertas</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="logo">top<b>shop</b>.</div>
+        <p>Produtos inteligentes. Conteúdo estratégico. Tecnologia em movimento.</p>
+      </div>
+      <div class="foot-links">
+        <div class="foot-col">
+          <h4>Navegação</h4>
+          <a href="#inicio">Início</a>
+          <a href="#produtos">Produtos</a>
+          <a href="#servicos">Serviços</a>
+          <a href="#contato">Contato</a>
+        </div>
+        <div class="foot-col">
+          <h4>Ofertas</h4>
+          <a href="https://beacons.ai/topshop" target="_blank">beacons.ai/topshop</a>
+          <a href="https://apoia.se/topshop" target="_blank">apoia.se/topshop</a>
+        </div>
+        <div class="foot-col">
+          <h4>Legal</h4>
+          <a href="privacidade.html">Privacidade</a>
+          <a href="termos.html">Termos</a>
+        </div>
+      </div>
+    </div>
+    <p class="afiliado">Aviso de afiliado: a topshop participa de programas de
+       afiliados. Alguns links nesta página podem gerar comissão sobre compras,
+       sem custo adicional para você. As ofertas e disponibilidades são de
+       responsabilidade das lojas anunciantes.</p>
+    <p class="copy">
+      © 2026 topshop. Todos os direitos reservados.
+      <br>
+      <a href="privacidade.html">Política de Privacidade</a> ·
+      <a href="termos.html">Termos de Serviço</a>
+    </p>
   </div>
 </footer>
+
+<script>
+  // Animação suave de revelação ao rolar
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
 
 </body>
 </html>
